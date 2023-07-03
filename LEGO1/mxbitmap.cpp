@@ -68,10 +68,42 @@ int MxBitmap::InitFromBitmap(const MxBitmap &p_src)
   return status;
 }
 
-// OFFSET: LEGO1 0x100bcba0 STUB
-int MxBitmap::vtable18(BITMAPINFOHEADER *p_bmiHeader)
+// OFFSET: LEGO1 0x100bcba0
+int MxBitmap::InitFromInfo(BITMAPINFO *p_bmi)
 {
-  return 0;
+  int status;
+  int pixelDataSize;
+  BITMAPINFO *pBitmapInfo;
+
+  status = -1;
+  pixelDataSize = p_bmi->bmiHeader.biHeight * Align(p_bmi->bmiHeader.biWidth, 4L);
+  if ( this->m_info = (BITMAPINFO *)malloc(1064))
+  {
+    if ( this->m_data = new BYTE[pixelDataSize] )
+    {
+      memcpy(this->m_info, p_bmi, 1064);
+      pBitmapInfo = this->m_info;
+      status = 0;
+      this->m_bmiHeader = &pBitmapInfo->bmiHeader;
+      this->m_paletteData = pBitmapInfo->bmiColors;
+    }
+  }
+
+  if ( status )
+  {
+    if ( this->m_info != NULL )
+    {
+      delete this->m_info;
+      this->m_info = NULL;
+    }
+    if ( this->m_data != NULL )
+    {
+      delete[] this->m_data;
+      this->m_data = NULL;
+    }
+  }
+
+  return status;
 }
 
 // OFFSET: LEGO1 0x100bcaa0 STUB

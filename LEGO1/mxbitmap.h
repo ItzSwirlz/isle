@@ -14,7 +14,7 @@ public:
   __declspec(dllexport) virtual ~MxBitmap(); // vtable+00
 
   virtual int InitFromBitmap(const MxBitmap &p_src);
-  virtual int vtable18(BITMAPINFOHEADER *p_bmiHeader);
+  virtual int InitFromInfo(BITMAPINFO *p_bmi);
   virtual int vtable1c(int p_width, int p_height, MxPalette *p_palette, int);
   virtual MxResult LoadFile(HANDLE p_handle);
   __declspec(dllexport) virtual MxLong Read(const char *p_filename); // vtable+24
