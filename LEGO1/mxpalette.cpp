@@ -8,10 +8,19 @@ MxResult MxPalette::GetEntries(LPPALETTEENTRY p_entries)
 }
 
 // OFFSET: LEGO1 0x100bf340
-MxBool MxPalette::operator==(MxPalette &)
+MxBool MxPalette::operator==(MxPalette &other)
 {
-  // TODO
-  return FALSE;
+  int i;
+  for (i = 0; i < 256; i++)
+  {
+    if (this->m_entries[i].peRed != other.m_entries[i].peRed)
+      return FALSE;
+    if (this->m_entries[i].peGreen != other.m_entries[i].peGreen)
+      return FALSE;
+    if (this->m_entries[i].peBlue != other.m_entries[i].peBlue)
+      return FALSE;
+  }
+  return TRUE;
 }
 
 // OFFSET: LEGO1 0x100bf330
