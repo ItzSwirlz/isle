@@ -13,7 +13,7 @@ public:
   __declspec(dllexport) MxBitmap();
   __declspec(dllexport) virtual ~MxBitmap(); // vtable+00
 
-  virtual int vtable14(int);
+  virtual int InitFromBitmap(const MxBitmap &p_src);
   virtual int vtable18(BITMAPINFOHEADER *p_bmiHeader);
   virtual int vtable1c(int p_width, int p_height, MxPalette *p_palette, int);
   virtual MxResult LoadFile(HANDLE p_handle);
@@ -30,7 +30,7 @@ private:
   BITMAPINFO *m_info;
   BITMAPINFOHEADER *m_bmiHeader;
   RGBQUAD *m_paletteData;
-  LPVOID *m_data;
+  LPVOID m_data;
   MxBool m_unk18;
   MxPalette *m_palette;
 };

@@ -1,4 +1,5 @@
 #include "mxbitmap.h"
+#include "legoutil.h"
 
 // OFFSET: LEGO1 0x100bc980
 MxBitmap::MxBitmap()
@@ -22,10 +23,49 @@ MxBitmap::~MxBitmap()
     delete m_palette;  
 }
 
-// OFFSET: LEGO1 0x100bcc40 STUB
-int MxBitmap::vtable14(int)
+// OFFSET: LEGO1 0x100bcc40
+int MxBitmap::InitFromBitmap(const MxBitmap &p_src)
 {
-  return 0;
+  int status;
+  BITMAPINFOHEADER *pBitmapHeader;
+  BYTE *pPixelData;
+  BITMAPINFOHEADER *pSrcHeader;
+  int fixedSrcHeight;
+  BITMAPINFO *pBitmapInfo;
+
+  status = -1;
+  pBitmapInfo = (BITMAPINFO *) malloc(0x428);
+  this->m_info = pBitmapInfo;
+  if ( pBitmapInfo )
+  {
+    pPixelData = new BYTE[AbsQuirk(p_src.m_bmiHeader->biHeight) * Align(p_src.m_bmiHeader->biWidth, 4L)];
+    this->m_data = pPixelData;
+    if ( pPixelData )
+    {
+      memcpy(this->m_info, p_src.m_info, 0x428u);
+      pSrcHeader = p_src.m_bmiHeader;
+      fixedSrcHeight = AbsQuirk(pSrcHeader->biHeight);
+      memcpy(this->m_data, p_src.m_data, fixedSrcHeight * Align(pSrcHeader->biWidth, 4L));
+      pBitmapInfo = this->m_info;
+      status = 0;
+      this->m_bmiHeader = &pBitmapInfo->bmiHeader;
+      this->m_paletteData = pBitmapInfo->bmiColors;
+    }
+  }
+  if ( status )
+  {
+    if ( this->m_info != NULL )
+    {
+      delete this->m_info;
+      this->m_info = NULL;
+    }
+    if ( this->m_data != NULL )
+    {
+      delete[] this->m_data;
+      this->m_data = NULL;
+    }
+  }
+  return status;
 }
 
 // OFFSET: LEGO1 0x100bcba0 STUB
