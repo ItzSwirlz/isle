@@ -25,7 +25,7 @@ MxResult MxPalette::GetEntries(LPPALETTEENTRY p_entries)
 // OFFSET: LEGO1 0x100bf2d0
 int MxPalette::SetSkyColor(LPPALETTEENTRY p_sky_color)
 {
-  // not 100% matching yet, register allocation is being weird
+  int status = 0;
   LPDIRECTDRAWPALETTE palette = this->m_pDirectDrawPalette;
   if ( palette )
   {
@@ -35,9 +35,9 @@ int MxPalette::SetSkyColor(LPPALETTEENTRY p_sky_color)
     this->m_skyColor = this->m_entries[141];
     
     if ( palette->SetEntries(0, 141, 1, &this->m_skyColor) )
-      return -1;
+      status = -1;
   }
-  return 0;
+  return status;
 }
 
 // OFFSET: LEGO1 0x100bf340
