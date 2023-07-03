@@ -1,5 +1,20 @@
 #include "mxpalette.h"
 
+// OFFSET: LEGO1 0x100bee30 STUB
+MxPalette::MxPalette()
+{
+
+}
+
+// OFFSET: LEGO1 0x100bf0b0
+MxPalette& MxPalette::Clone()
+{
+  MxPalette *result = new MxPalette;
+  this->GetEntries(result->m_entries);
+  result->m_unk40C = this->m_unk40C;
+  return *result;
+}
+
 // OFFSET: LEGO1 0x100bf150
 MxResult MxPalette::GetEntries(LPPALETTEENTRY p_entries)
 {

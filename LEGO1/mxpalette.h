@@ -14,6 +14,10 @@ public:
   __declspec(dllexport) MxBool operator==(MxPalette &);
   __declspec(dllexport) void Detach();
 
+  MxPalette();
+  MxPalette(LPRGBQUAD p_colors);
+
+  MxPalette& Clone();
   // there might be a method in between these two
   MxResult GetEntries(LPPALETTEENTRY p_entries);
   int SetSkyColor(LPPALETTEENTRY p_sky_color);
