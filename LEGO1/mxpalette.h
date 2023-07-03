@@ -14,12 +14,14 @@ public:
   __declspec(dllexport) MxBool operator==(MxPalette &);
   __declspec(dllexport) void Detach();
 
+  // there might be a method in between these two
   MxResult GetEntries(LPPALETTEENTRY p_entries);
-
+  int SetSkyColor(LPPALETTEENTRY p_sky_color);
 private:
   LPDIRECTDRAWPALETTE m_pDirectDrawPalette;
   PALETTEENTRY m_entries[256];
-  // there's a bit more here
+  MxBool m_unk40C;
+  PALETTEENTRY m_skyColor;
 };
 
 #endif // MXPALETTE_H
