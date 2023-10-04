@@ -13,6 +13,7 @@ public:
   {
     Init();
   }
+  ~MxMediaPresenter();
 
   virtual MxResult Tickle() override; // vtable+0x8, override MxCore
 
@@ -33,6 +34,10 @@ public:
   undefined4 m_unk44;
   undefined4 m_unk48;
   undefined4 m_unk4c;
+
+protected:
+  void Destroy(MxBool);  // definitely public, other functions call this
+
 private:
   void Init();
 
